@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Montessori Casa — Ambiente Preparado Digital</title>
+  <meta name="description" content="Montessori Casa es el primer ambiente preparado digital diseñado con rigor AMI para niños de 2.5 a 6 años. Sin premios, sin ruido, sin prisa.">
+  <meta name="author" content="Montessori Casa">
+  <meta property="og:title" content="Montessori Casa — Ambiente Preparado Digital">
+  <meta property="og:description" content="El primer ambiente preparado digital diseñado con rigor AMI para niños de 2.5 a 6 años.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/x-icon" href="https://public-frontend-1300249583.cos.ap-nanjing.mycloud.com/commonfile/DefaultAppLogo.png">
+
+  <!-- Preload images -->
+  <link rel="preload" as="image" href="https://mgx-backend-cdn.metadl.com/generate/images/1267442/2026-05-24/pffirwaaagsq/hero-montessori-serene-classroom.png">
+  <link rel="preload" as="image" href="https://mgx-backend-cdn.metadl.com/generate/images/1267442/2026-05-24/pffir6aaagsa/vida-practica-hands-activity.png">
+  <link rel="preload" as="image" href="https://mgx-backend-cdn.metadl.com/generate/images/1267442/2026-05-24/pffimziaagta/sensorial-materials-illustration.png">
+  <link rel="preload" as="image" href="https://mgx-backend-cdn.metadl.com/generate/images/1267442/2026-05-24/pffirbyaagra/app-interface-mockup-tablet.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       MONTESSORI CASA — DESIGN SYSTEM
+       ============================================ */
+    :root {
+      /* Primary Palette */
+      --montessori-forest: #2D4A3E;
+      --montessori-forest-light: #3D6352;
+      --montessori-forest-dark: #1E3328;
+      --montessori-cream: #FAF7F2;
+      --montessori-cream-dark: #F0EDE6;
+      --montessori-terracotta: #C4704B;
+      --montessori-wood: #A67B5B;
+      --montessori-sage: #8B9E7C;
+
+      /* Typography */
+      --font-serif: 'Cormorant Garamond', 'Georgia', serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* Spacing */
+      --section-py: 6rem;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+    }
+
+    /* Reset & Base */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--montessori-forest);
+      background-color: var(--montessori-cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Utility */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Fade-in animation */
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+    }
+    .fade-in-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================
+       LAYOUT
+       ============================================ */
+    .section {
+      padding-top: var(--section-py);
+      padding-bottom: var(--section-py);
+    }
+    .section--cream { background-color: var(--montessori-cream); }
+    .section--white { background-color: #ffffff; }
+    .section--forest { background-color: var(--montessori-forest); }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    /* ============================================
+       TYPOGRAPHY
+       ============================================ */
+    h1, h2, h3, h4 {
+      font-family: var(--font-serif);
+      line-height: 1.2;
+    }
+
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 600;
+      color: var(--montessori-cream);
+      margin-bottom: 2rem;
+    }
+
+    /* ✅ FIX: Los h2 sobre fondos oscuros usan color crema */
+    h2 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 600;
+      color: var(--montessori-forest);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Cuando el h2 está dentro de un contenedor con fondo forest (oscuro) */
+    .section--forest h2,
+    [data-dark-bg] h2,
+    .bg-forest h2 {
+      color: var(--montessori-cream);
+    }
+
+    h3 {
+      font-size: clamp(1.25rem, 2.5vw, 2rem);
+      font-weight: 600;
+      color: var(--montessori-forest);
+      margin-bottom: 1rem;
+    }
+
+    h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--montessori-forest);
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      color: rgba(45, 74, 62, 0.7);
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .section--forest p,
+    [data-dark-bg] p,
+    .bg-forest p {
+      color: rgba(250, 247, 242, 0.8);
+    }
+
+    .tagline {
+      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      color: rgba(250, 247, 242, 0.9);
+      font-weight: 300;
+      max-width: 42rem;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .body-text {
+      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      color: rgba(45, 74, 62, 0.7);
+      font-weight: 300;
+      max-width: 42rem;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.7;
+    }
+
+    .section--forest .body-text {
+      color: rgba(250, 247, 242, 0.85);
+    }
+
+    .italic { font-style: italic; }
+    .materials-tag {
+      font-size: 0.85rem;
+      color: var(--montessori-sage);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ============================================
+       BUTTONS
+       ============================================ */
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn--primary {
+      background-color: var(--montessori-terracotta);
+      color: var(--montessori-cream);
+    }
+    .btn--primary:hover {
+      background-color: var(--montessori-wood);
+      transform: translateY(-1px);
+    }
+
+    .btn--secondary {
+      background-color: var(--montessori-cream);
+      color: var(--montessori-forest);
+    }
+    .btn--secondary:hover {
+      background-color: var(--montessori-cream-dark);
+    }
+
+    /* ============================================
+       HERO
+       ============================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://mgx-backend-cdn.metadl.com/generate/images/1267442/2026-05-24/pffirwaaagsq/hero-montessori-serene-classroom.png');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(45, 74, 62, 0.7);
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 10;
+      max-width: 56rem;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      text-align: center;
+    }
+
+    .hero__content p {
+      color: rgba(250, 247, 242, 0.9);
+      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      font-weight: 300;
+      max-width: 42rem;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    /* ============================================
+       FEATURES GRID (3 cards)
+       ============================================ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(139, 158, 124, 0.2);
+      transition: box-shadow 0.3s ease;
+      height: 100%;
+    }
+    .feature-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .feature-card__icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card p {
+      font-size: 1rem;
+    }
+
+    /* ============================================
+       AMBIENTE — AREAS
+       ============================================ */
+    .areas-intro {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .areas-intro p {
+      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      color: rgba(45, 74, 62, 0.7);
+      font-weight: 300;
+      max-width: 42rem;
+      margin: 0 auto;
+    }
+
+    .area-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    @media (min-width: 768px) {
+      .area-row {
+        flex-direction: row;
+        gap: 3rem;
+      }
+      .area-row--reverse {
+        flex-direction: row-reverse;
+      }
+    }
+
+    .area-row__image {
+      width: 100%;
+      flex: 1;
+    }
+    .area-row__image img {
+      border-radius: 1rem;
+      box-shadow: var(--shadow-md);
+      width: 100%;
+      height: 20rem;
+      object-fit: cover;
+    }
+
+    .area-row__image--placeholder {
+      border-radius: 1rem;
+      width: 100%;
+      height: 20rem;
+      background: linear-gradient(135deg, var(--montessori-cream-dark), rgba(139, 158, 124, 0.15));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .area-row__image--placeholder span {
+      font-size: 4rem;
+      opacity: 0.6;
+    }
+
+    .area-row__content {
+      width: 100%;
+      flex: 1;
+    }
+
+    .area-row__content p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    /* ✅ FIX: Tag de materiales para Vida Práctica (guía para padres) */
+    .area-row__content .materials-tag {
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    /* ============================================
+       OBSERVATION PANEL
+       ============================================ */
+    .observation-panel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+      margin-bottom: 4rem;
+    }
+
+    @media (min-width: 768px) {
+      .observation-panel {
+        flex-direction: row;
+        gap: 3rem;
+      }
+    }
+
+    .observation-panel__image {
+      width: 100%;
+      flex: 1;
+    }
+    .observation-panel__image img {
+      border-radius: 1rem;
+      box-shadow: var(--shadow-md);
+      width: 100%;
+      height: 20rem;
+      object-fit: cover;
+    }
+
+    .observation-panel__content {
+      width: 100%;
+      flex: 1;
+    }
+
+    .observation-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+
+    .observation-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .observation-list__number {
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: var(--montessori-sage);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 600;
+      font-family: var(--font-sans);
+    }
+
+    .observation-list__text h4 {
+      margin-bottom: 0.25rem;
+    }
+
+    .observation-list__text p {
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    .observation-note {
+      font-size: 1rem;
+      color: rgba(45, 74, 62, 0.7);
+      font-weight: 300;
+      line-height: 1.7;
+      margin-top: 1.5rem;
+    }
+
+    /* ============================================
+       FAQ ACCORDION
+       ============================================ */
+    .faq-list {
+      max-width: 48rem;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid rgba(45, 74, 62, 0.1);
+    }
+
+    .faq-item__button {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 0;
+      background: none;
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--montessori-forest);
+      cursor: pointer;
+      text-align: left;
+      gap: 1rem;
+    }
+
+    .faq-item__button:hover {
+      color: var(--montessori-terracotta);
+    }
+
+    .faq-item__icon {
+      flex-shrink: 0;
+      font-size: 1.5rem;
+      font-weight: 300;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item__button[aria-expanded="true"] .faq-item__icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-item__answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .faq-item__answer.is-open {
+      max-height: 300px;
+      padding-bottom: 1.5rem;
+    }
+
+    .faq-item__answer p {
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+
+    /* ============================================
+       CTA FINAL
+       ============================================ */
+    .cta-section {
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      color: var(--montessori-cream);
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      color: rgba(250, 247, 242, 0.8);
+      font-size: 1.1rem;
+      font-weight: 300;
+      max-width: 36rem;
+      margin: 0 auto 2.5rem;
+    }
+
+    .cta-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 480px) {
+      .cta-form {
+        flex-direction: row;
+      }
+    }
+
+    .cta-form input[type="email"] {
+      flex: 1;
+      width: 100%;
+      padding: 0.875rem 1.25rem;
+      border-radius: 9999px;
+      border: 2px solid rgba(250, 247, 242, 0.3);
+      background: rgba(250, 247, 242, 0.1);
+      color: var(--montessori-cream);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .cta-form input[type="email"]::placeholder {
+      color: rgba(250, 247, 242, 0.5);
+    }
+
+    .cta-form input[type="email"]:focus {
+      border-color: var(--montessori-cream);
+    }
+
+    .cta-form .btn--secondary {
+      flex-shrink: 0;
+    }
+
+    /* ============================================
+       FOOTER
+       ============================================ */
+    .footer {
+      background-color: var(--montessori-forest-dark);
+      color: rgba(250, 247, 242, 0.6);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.875rem;
+    }
+
+    .footer a {
+      color: rgba(250, 247, 242, 0.8);
+      text-decoration: none;
+    }
+    .footer a:hover {
+      color: var(--montessori-cream);
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+    @media (max-width: 767px) {
+      .section {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
+      .section-header {
+        margin-bottom: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================
+       HERO
+       ========================================== -->
+  <section class="hero" id="inicio">
+    <div class="hero__bg"></div>
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <h1>Donde la concentración florece en silencio</h1>
+      <p>Montessori Casa es el primer ambiente preparado digital diseñado con rigor AMI para niños de 2.5 a 6 años. Sin premios, sin ruido, sin prisa — solo el material, el niño y su ritmo interior.</p>
+      <!-- ✅ FIX CTA: "Pruébalo ahora" + link de descarga -->
+      <a href="https://montessori-casa.app/download" class="btn btn--primary" id="cta-hero">Pruébalo ahora</a>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       POR QUÉ NO SOMOS UN JUEGO MÁS
+       ========================================== -->
+  <section class="section section--cream">
+    <div class="container">
+      <div class="section-header fade-in-section">
+        <h2>Por qué no somos un juego más</h2>
+        <p class="body-text">Las apps infantiles actuales compiten por la atención del niño con ruido, luces y recompensas vacías. Nosotros competimos por algo distinto: su concentración profunda.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card fade-in-section">
+          <div class="feature-card__icon">🍃</div>
+          <h3>El Silencio y el Enfoque</h3>
+          <p>Sin música de fondo, sin efectos sonoros gratuitos. El silencio es el lienzo donde nace la atención profunda.</p>
+        </div>
+        <div class="feature-card fade-in-section">
+          <div class="feature-card__icon">✦</div>
+          <h3>La Motivación Intrínseca</h3>
+          <p>No hay estrellas, no hay puntos, no hay aplausos artificiales. El éxito es visible: el cilindro encaja, la torre se eleva, las letras forman una palabra.</p>
+        </div>
+        <div class="feature-card fade-in-section">
+          <div class="feature-card__icon">◯</div>
+          <h3>El Control del Error Autónomo</h3>
+          <p>No hay pantallas rojas de "¡Inténtalo de nuevo!". El material mismo revela el error con elegancia, invitando al niño a autocorregirse.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       RECORRIDO POR EL AMBIENTE
+       ========================================== -->
+  <section class="section section--white" id="ambiente">
+    <div class="container">
+      <div class="section-header fade-in-section">
+        <h2>Recorrido por el Ambiente</h2>
+        <!-- ✅ FIX: Texto actualizado — 3 áreas digitales + 1 guía para el hogar -->
+        <p class="body-text">Tres áreas de trabajo digital y una guía para el hogar, cada una diseñada para responder a un período sensible del desarrollo.</p>
+      </div>
+
+      <div class="areas-list">
+
+        <!-- ✅ FIX CAMBIO 1: Vida Práctica — guía para padres, NO módulo jugable -->
+        <div class="area-row fade-in-section">
+          <div class="area-row__image">
+            <img src="https://mgx-backend-cdn.metadl.com/generate/images/1267442/2026-05-24/pffir6aaagsa/vida-practica-hands-activity.png" alt="Vida Práctica — Guía para padres" loading="lazy" width="768" height="512">
+          </div>
+          <div class="area-row__content">
+            <h3>Vida Práctica</h3>
+            <p class="italic">Verter, abotonar, doblar. La mano que trabaja construye la mente que piensa.</p>
+            <p>Vida Práctica no es un módulo digital. Es el corazón del hogar Montessori, y la hacen los padres con materiales reales. Aquí encontrarás guías detalladas paso a paso para crear actividades de Vida Práctica en casa: verter, abotonar, trasvasar, preparar alimentos. Instrucciones claras con los materiales que necesitas y cómo presentarlas al niño.</p>
+            <span class="materials-tag">Para padres: Guías paso a paso con materiales reales, presentaciones Montessori y ejemplos para el hogar</span>
+          </div>
+        </div>
+
+        <!-- Sensorial -->
+        <div class="area-row area-row--reverse fade-in-section">
+          <div class="area-row__image">
+            <img src="https://mgx-backend-cdn.metadl.com/generate/images/1267442/2026-05-24/pffimziaagta/sensorial-materials-illustration.png" alt="Área Sensorial" loading="lazy" width="512" height="512">
+          </div>
+          <div class="area-row__content">
+            <h3>Sensorial</h3>
+            <p class="italic">El niño no recibe información: la descubre con sus manos.</p>
+            <p>Cada material aísla una cualidad — color, tamaño, textura, peso, sonido — para que el niño pueda percirla sin distracciones. La torre rosa no enseña "grande y pequeño": invita al niño a descubrirlo por sí mismo.</p>
+            <span class="materials-tag">Materiales: Torre rosa, escalera marrón, tablillas de color</span>
+          </div>
+        </div>
+
+        <!-- Lenguaje -->
+        <div class="area-row fade-in-section">
+          <div class="area-row__image">
+            <div class="area-row__image--placeholder"><span>🔤</span></div>
+          </div>
+          <div class="area-row__content">
+            <h3>Lenguaje</h3>
+            <p class="italic">Primero el sonido, luego la letra, después la palabra.</p>
+            <p>Las letras de lija hápticas conectan el ojo, la mano y el oído en un solo gesto. El alfabeto móvil fonético permite al niño componer palabras antes de poder escribirlas — porque en Montessori, pensar precede al trazo.</p>
+            <span class="materials-tag">Materiales: Letras de lija hápticas, alfabeto móvil fonético</span>
+          </div>
+        </div>
+
+        <!-- Matemáticas -->
+        <div class="area-row area-row--reverse fade-in-section">
+          <div class="area-row__image">
+            <div class="area-row__image--placeholder"><span>🔢</span></div>
+          </div>
+          <div class="area-row__content">
+            <h3>Matemáticas</h3>
+            <p class="italic">Lo abstracto nace de lo concreto. Siempre.</p>
+            <p>Barras numéricas que se pueden tocar, husos que se pueden contar, cuentas que se pueden ensartar. El niño construye el concepto de número con las manos antes de encontrarlo en un símbolo.</p>
+            <span class="materials-tag">Materiales: Barras numéricas, husos, tablero del cien</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PANEL DE OBSERVACIÓN
+       ========================================== -->
+  <section class="section section--cream" id="observacion">
+    <div class="container">
+      <div class="section-header fade-in-section">
+        <h2>Observar, no vigilar</h2>
+        <p class="body-text">El Panel del Adulto convierte datos en comprensión. Sin gamificación, sin presión — solo lo que necesitas saber para acompañar.</p>
+      </div>
+
+      <div class="observation-panel fade-in-section">
+        <div class="observation-panel__image">
+          <img src="https://mgx-backend-cdn.metadl.com/generate/images/1267442/2026-05-24/pffirbyaagra/app-interface-mockup-tablet.png" alt="Panel de Observación" loading="lazy" width="768" height="512">
+        </div>
+        <div class="observation-panel__content">
+          <ul class="observation-list">
+            <li>
+              <span class="observation-list__number">1</span>
+              <div class="observation-list__text">
+                <h4>Gráficas de concentración real</h4>
+                <p>Tiempo de enfoque profundo, no tiempo de pantalla. Saber cuándo el niño está en flujo es más valioso que cualquier puntuación.</p>
+              </div>
+            </li>
+            <li>
+              <span class="observation-list__number">2</span>
+              <div class="observation-list__text">
+                <h4>Mapas de libre elección</h4>
+                <p>¿Qué elige el niño cuando nadie le dice qué hacer? Los patrones de libre elección revelan intereses auténticos y períodos sensibles activos.</p>
+              </div>
+            </li>
+            <li>
+              <span class="observation-list__number">3</span>
+              <div class="observation-list__text">
+                <h4>Sugerencias de conexión con la vida real</h4>
+                <p>Cada actividad digital se conecta con una extensión en el hogar: verter agua real, clasificar botones, trazar letras en arena.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PREGUNTAS FRECUENTES
+       ========================================== -->
+  <section class="section section--white" id="faq">
+    <div class="container">
+      <div class="section-header fade-in-section">
+        <h2>Preguntas frecuentes</h2>
+      </div>
+
+      <div class="faq-list fade-in-section">
+        <div class="faq-item">
+          <button class="faq-item__button" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>¿Por qué la app no tiene un sistema de puntuación?</span>
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>En Montessori, la motivación viene del interior. Las recompensas externas (estrellas, puntos, medallas) sustituyen la satisfacción genuina del logro por una dependencia artificial. Cuando el niño ve que el cilindro encaja perfectamente en su agujero, esa es la recompensa. No necesitamos añadir nada más.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__button" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>¿Cómo ayuda una app digital al desarrollo físico real del niño?</span>
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>Montessori Casa no reemplaza el material físico — lo complementa y lo extiende. Cada actividad digital incluye una "extensión al hogar": si el niño trabaja con trasvases virtuales, la app sugiere al adulto preparar una bandeja con jarras reales. El ambiente digital es un puente, nunca un destino final.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__button" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>¿Qué significa que las presentaciones sigan el rigor de la AMI?</span>
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>AMI (Association Montessori Internationale) es el organismo fundado por la propia María Montessori. Que nuestras presentaciones digitales sigan su rigor significa que cada actividad ha sido diseñada por guías Montessori certificadas, respetando los principios de aislamiento de dificultad, control del error y presentación exacta.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__button" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>¿Vida Práctica se puede hacer en la app?</span>
+            <span class="faq-item__icon">+</span>
+          </button>
+          <div class="faq-item__answer">
+            <p>No. Vida Práctica es 100% física y se hace en casa con materiales reales. La app incluye guías detalladas para padres con instrucciones paso a paso: qué materiales necesitan, cómo preparar la actividad y cómo presentarla al niño. Vida Práctica es el área donde los padres participan más directamente.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       CTA FINAL
+       ========================================== -->
+  <section class="section section--forest" id="unirme">
+    <div class="container">
+      <div class="cta-section fade-in-section">
+        <!-- ✅ FIX: h2 sobre fondo oscuro usa color crema (regla CSS .section--forest h2) -->
+        <h2>El ambiente preparado está listo.<br>¿Y tu familia?</h2>
+        <p>Únete a la lista de espera y sé el primero en saber cuando Montessori Casa esté disponible.</p>
+        <form class="cta-form" onsubmit="handleSubmit(event)">
+          <label for="email" class="sr-only">Email</label>
+          <input type="email" id="email" placeholder="tu@email.com" required aria-label="Tu email">
+          <button type="submit" class="btn btn--secondary">Unirme</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="footer">
+    <p>© 2026 Montessori Casa. Diseñado con rigor AMI. Hecho con ♥ para las familias.</p>
+  </footer>
+
+  <!-- ==========================================
+       JAVASCRIPT
+       ========================================== -->
+  <script>
+    // FAQ Accordion
+    function toggleFaq(button) {
+      const answer = button.nextElementSibling;
+      const isOpen = button.getAttribute('aria-expanded') === 'true';
+
+      // Close all
+      document.querySelectorAll('.faq-item__answer.is-open').forEach(el => {
+        el.classList.remove('is-open');
+      });
+      document.querySelectorAll('.faq-item__button[aria-expanded="true"]').forEach(el => {
+        el.setAttribute('aria-expanded', 'false');
+      });
+
+      // Toggle current
+      if (!isOpen) {
+        button.setAttribute('aria-expanded', 'true');
+        answer.classList.add('is-open');
+      }
+    }
+
+    // Form handler
+    function handleSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      // TODO: Integrate with email service
+      alert('¡Gracias! Te avisaremos cuando esté disponible: ' + email);
+    }
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in-section').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
